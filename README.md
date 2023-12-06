@@ -28,11 +28,19 @@ Following this the different Options will be explained in detail.
 
 #### Window Attributes
 
+![Window Attributes Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2001.png?raw=true)
+
 #### Advanced Features
+
+![Advanced Features Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2002.png?raw=true)
 
 #### Experimental Features
 
+![Experimental Features Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2003.png?raw=true)
+
 #### Info
+
+![Info Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2004.png?raw=true)
 
 ### Use Cases
 
