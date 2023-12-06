@@ -2,7 +2,8 @@
 
 
 
-WinEdit Dx is a Tool to edit the various attributes a Application Window could have.   
+WinEdit Dx is a Tool to edit the various attributes a Application Window could have.
+It utilizes the Windows API for many features.
 The Tool was tested with Windows 10 but should also work with Windows 11.
 
 ## Documentation
@@ -30,24 +31,47 @@ Following this the different Options will be explained in detail.
 
 ![Window Attributes Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2001.png?raw=true)
 
+Template  
+Template  
+Template  
+Template  
+Template  
+
 #### Advanced Features
 
 ![Advanced Features Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2002.png?raw=true)
+
+Template  
+Template  
+Template  
+Template  
+Template  
 
 #### Experimental Features
 
 ![Experimental Features Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2003.png?raw=true)
 
+Template  
+Template  
+Template  
+Template  
+Template  
+
 #### Info
 
 ![Info Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2004.png?raw=true)
+
+Template  
+Template  
+Template  
+Template  
+Template  
 
 ### Use Cases
 
 Here are some situations where I use this Tool:  
 
-VLC Media Player: When playing ISO Images of DVDs or Blu-rays directly in resized mode the Window tends to resize itself  
-with enabling the resize Prevention this does not happen anymore.  
+VLC Media Player: When playing ISO Images of DVDs or Blu-rays directly in resized mode the Window tends to resize itself but with enabling the resize Prevention this does not happen anymore.  
 
 OBS Studio: The Window of OBS can easily encapsulated in a child Window of WinEdit Dx.  
 After encapsulationg the Window the new Capsule Window can be selected and its DisplayAffinity can now be set.  
