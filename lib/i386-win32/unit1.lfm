@@ -216,36 +216,88 @@ object Form1: TForm1
         ClientWidth = 109
         TabOrder = 0
         object SpinEdit1: TSpinEdit
-          Left = 8
+          Left = 32
           Height = 23
           Top = 8
-          Width = 90
+          Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 0
         end
         object SpinEdit2: TSpinEdit
-          Left = 8
+          Left = 32
           Height = 23
           Top = 40
-          Width = 90
+          Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 1
         end
         object SpinEdit3: TSpinEdit
-          Left = 8
+          Left = 32
           Height = 23
           Top = 72
-          Width = 90
+          Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 2
         end
         object SpinEdit4: TSpinEdit
-          Left = 8
+          Left = 32
           Height = 23
           Top = 104
-          Width = 90
+          Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 3
+        end
+        object Label10: TLabel
+          Left = 6
+          Height = 20
+          Top = 11
+          Width = 12
+          Caption = 'X:'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -15
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label11: TLabel
+          Left = 6
+          Height = 20
+          Top = 43
+          Width = 11
+          Caption = 'Y:'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -15
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label12: TLabel
+          Left = 6
+          Height = 20
+          Top = 75
+          Width = 17
+          Caption = 'W:'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -15
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label13: TLabel
+          Left = 6
+          Height = 20
+          Top = 107
+          Width = 14
+          Caption = 'H:'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -15
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentColor = False
+          ParentFont = False
         end
       end
       object CheckGroup1: TCheckGroup
