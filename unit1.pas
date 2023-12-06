@@ -299,10 +299,11 @@ begin
     if DPA = 1 then begin  //WDA_MONITOR
       RadioButton5.Checked := True;
     end
-    else if DPA = 11 then begin  //WDA_EXCLUDEFROMCAPTURE
+    else if DPA = 17 then begin  //WDA_EXCLUDEFROMCAPTURE
       RadioButton6.Checked := True;
     end
     else begin  //WDA_NONE or invalid
+      ShowMessage(IntToStr(DPA));
       RadioButton4.Checked := True;
     end;
 

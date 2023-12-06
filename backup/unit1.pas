@@ -303,6 +303,7 @@ begin
       RadioButton6.Checked := True;
     end
     else begin  //WDA_NONE or invalid
+      ShowMessage(IntToStr(DPA));
       RadioButton4.Checked := True;
     end;
 
