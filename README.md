@@ -31,11 +31,27 @@ Following this the different Options will be explained in detail.
 
 ![Window Attributes Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2001.png?raw=true)
 
-Template  
-Template  
-Template  
-Template  
-Template  
+Position and Size: directly change the Dimensions of the choosen Window  
+
+Attributes: toggle important Window attributes directly  
+
+Transparency: eiher slide the TrackBar to apply opacity or select a transparency Color  
+
+Error Message: display a fake error Message onto the choosen Window  
+
+Window Title: directly change the Window Title as you type  
+
+Size: switch minimized, maximized or normal Window states  
+
+Controls: disable or enable the Controls in the Titlebar  
+
+Preventions: prevent moving/resizing of the Window by adding up to 10 Entries to a Timer  
+
+The Button "Flash Window" Lets the Window Titlebar and Taskbar Icon glow for a short while.  
+
+The Button "Bring to Front" just moves the Window to the top of the z-order once.  
+
+The Button "Close Window" attempts to close the Window by sending a WM_CLOSE Message.  
 
 #### Advanced Features
 
