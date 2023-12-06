@@ -26,3 +26,6 @@ The Tool was tested with Windows 10 but should also work with Windows 11.
 
 
 ## Changelog
+
+
+## License
