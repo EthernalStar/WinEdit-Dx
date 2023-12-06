@@ -29,3 +29,5 @@ The Tool was tested with Windows 10 but should also work with Windows 11.
 
 
 ## License
+
+GNU General Public License v3.0. See LICENSE for further Information.
