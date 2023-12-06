@@ -45,7 +45,7 @@ Following this the different Options will be explained in detail.
 
 **Preventions**: prevent moving/resizing of the Window by adding up to 10 Entries to a Timer.  
 
-The Button "**Flash Window**" Lets the Window Titlebar and Taskbar Icon glow for a short while.  
+The Button "**Flash Window**" lets the Window Titlebar and Taskbar Icon glow for a short while.  
 
 The Button "**Bring to Front**" just moves the Window to the top of the z-order once.  
 
@@ -55,21 +55,26 @@ The Button "**Close Window**" attempts to close the Window by sending a WM_CLOSE
 
 ![Advanced Features Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2002.png?raw=true)
 
-Template  
-Template  
-Template  
-Template  
-Template  
+**Free Movement Area**: just click the red square to freely move your selected Window. Click again to stop.  
+
+**Window Encapsulating**:  create a new parent Form for your Window or inject it in another Form.  
+
+**Flashing**: like the "**Flash Window**" Button from the first page but more customizeable.  
 
 #### Experimental Features
 
 ![Experimental Features Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2003.png?raw=true)
 
-Template  
-Template  
-Template  
-Template  
-Template  
+**INFORMATION:** Experimental features need to be manualy enabled to be functional.
+
+
+**Preview of Window**: generate a stretched Preview of your Window wich can be exportet as full size PNG.  
+
+**Manual Style Set**: display the full Style values of your Window and edit them. See Help for more Info.  
+
+**Display Affinity**: change and display the DisplayAffinity values of your Window.*  
+
+*Only the Windows belonging to WinEdit Dx can have their DisplayAffinity changed.
 
 #### Info
 
