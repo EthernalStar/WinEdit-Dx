@@ -1,14 +1,12 @@
 # ![Logo](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Icon.png?raw=true) WinEdit Dx
 
-
-
-WinEdit Dx is a Tool to edit the various attributes a Application Window could have.
+**WinEdit Dx** is a Tool to edit the various attributes a Application Window could have.
 It utilizes the Windows API for many features.
 The Tool was tested with Windows 10 but should also work with Windows 11.
 
 ## Documentation
 
-Please Read the Instructions with care to avoid breaking your Windows.  
+**Please Read the Instructions with care to avoid breaking your Windows!**  
 The Tool itself is structured into two main segments:  
 1. The Window List at the Bottom to choose your Window from.
 2. The different Options to edit the choosen Window at the Top.
@@ -31,27 +29,27 @@ Following this the different Options will be explained in detail.
 
 ![Window Attributes Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2001.png?raw=true)
 
-Position and Size: directly change the Dimensions of the choosen Window  
+**Position and Size**: directly change the Dimensions of the choosen Window.  
 
-Attributes: toggle important Window attributes directly  
+**Attributes**: toggle important Window attributes directly.  
 
-Transparency: eiher slide the TrackBar to apply opacity or select a transparency Color  
+**Transparency**: eiher slide the TrackBar to apply opacity or select a transparency Color.  
 
-Error Message: display a fake error Message onto the choosen Window  
+**Error Message**: display a fake error Message onto the choosen Window.  
 
-Window Title: directly change the Window Title as you type  
+**Window Title**: directly change the Window Title as you type.  
 
-Size: switch minimized, maximized or normal Window states  
+**Size**: switch minimized, maximized or normal Window states.  
 
-Controls: disable or enable the Controls in the Titlebar  
+**Controls**: disable or enable the Controls in the Titlebar.  
 
-Preventions: prevent moving/resizing of the Window by adding up to 10 Entries to a Timer  
+**Preventions**: prevent moving/resizing of the Window by adding up to 10 Entries to a Timer.  
 
-The Button "Flash Window" Lets the Window Titlebar and Taskbar Icon glow for a short while.  
+The Button "**Flash Window**" Lets the Window Titlebar and Taskbar Icon glow for a short while.  
 
-The Button "Bring to Front" just moves the Window to the top of the z-order once.  
+The Button "**Bring to Front**" just moves the Window to the top of the z-order once.  
 
-The Button "Close Window" attempts to close the Window by sending a WM_CLOSE Message.  
+The Button "**Close Window**" attempts to close the Window by sending a WM_CLOSE Message.  
 
 #### Advanced Features
 
@@ -77,11 +75,15 @@ Template
 
 ![Info Screenshot](https://github.com/EthernalStar/WinEdit-Dx/blob/main/Images/WinEdit%20Dx%2004.png?raw=true)
 
-Template  
-Template  
-Template  
-Template  
-Template  
+**Disable Topmost Status**: changes the Topmost state of the WinEdit Dx Application.  
+
+**Disable Tray Icon**: toggles the Visibility of the TrayIcon.  
+
+**Monitor active Handle in Titlebar**: Display the Handle of the currently focused Window in the Titlebar.  
+
+The Button "**See latest Changelog**" just shows the most recent Changelog.  
+
+The Button "**See License Information**" just shows the License of this Project.  
 
 ### Use Cases
 
