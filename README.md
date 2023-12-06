@@ -84,7 +84,7 @@ The Button "**Close Window**" attempts to close the Window by sending a WM_CLOSE
 
 **Disable Topmost Status**: changes the Topmost state of the WinEdit Dx Application.  
 
-**Disable Tray Icon**: toggles the Visibility of the TrayIcon.  
+**Disable Tray Icon**: toggles the Visibility of the TrayIcon, wich can be used to hide WinEdit Dx.  
 
 **Monitor active Handle in Titlebar**: Display the Handle of the currently focused Window in the Titlebar.  
 
