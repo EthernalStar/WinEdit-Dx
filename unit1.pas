@@ -193,20 +193,12 @@ var
 
   AllowDrag: Boolean = False;  //Boolean for allowing Drag in free movement Area
 
-  const License = 'WinEdit Dx' + LineEnding + 'Copyright (C) 2023 EthernalStar' + LineEnding +
-
-        'This program is free software: you can redistribute it and/or modify' + LineEnding +
-        'it under the terms of the GNU General Public License as published by' + LineEnding +
-        'the Free Software Foundation, either version 3 of the License, or' + LineEnding +
-        '(at your option) any later version.' + LineEnding + LineEnding +
-
-        'This program is distributed in the hope that it will be useful,' + LineEnding +
-        'but WITHOUT ANY WARRANTY; without even the implied warranty of' + LineEnding +
-        'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.' + LineEnding +
-        'See the GNU General Public License for more details.' + LineEnding + LineEnding +
-
-        'You should have received a copy of the GNU General Public License' + LineEnding +
-        'along with this program.  If not, see <http://www.gnu.org/licenses/>.';  //The String used for Displaying the License Information
+  const License = 'WinEdit Dx is licensed under the' + LineEnding +
+                  'GNU General Public License v3.0.' + LineEnding +
+                  'You should have received a copy of the ' + LineEnding +
+                  'GNU General Public License' + LineEnding +
+                  'along with this program.' + LineEnding +
+                  'If not, see https://www.gnu.org/licenses/';  //The String used for Displaying the License Information
 
   const Changelog = 'Version 1.00: Initial Release';  //The String used for Displaying the latest Changelog
 
