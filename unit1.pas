@@ -685,12 +685,12 @@ begin
 
     if CheckBox5.Checked then begin
 
-      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) OR $00080020);  //Set Window Topmost State
+      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) OR $00080020);  //Set Window Click-through State
 
     end
     else begin
 
-      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) AND NOT $00080020);  //Remove Window Topmost State
+      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) AND NOT $00080020);  //Remove Window Click-through State
 
     end;
 
