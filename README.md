@@ -8,9 +8,11 @@ The Tool was tested with Windows 10 but should also work with Windows 11.
 ## Documentation
 
 **Please Read the Instructions with care to avoid breaking your Windows!**  
+  
 The Tool itself is structured into two main segments:  
 1. The Window List at the Bottom to choose your Window from.
-2. The different Options to edit the choosen Window at the Top.  
+2. The different Options to edit the choosen Window at the Top.
+  
 **Also the Tool may be flagged as a false positive by your System**
 **If you are still unsure please check and compile the Source Code yourself or try it in a VM first**  
 
