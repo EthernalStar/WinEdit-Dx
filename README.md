@@ -136,6 +136,7 @@ But I think I will outsource this Idea to a new independent Project regarding th
 ## Changelog
 
 Version 1.00: Initial Release  
+Version 1.01: Fix Free Movement Mode for Multi Monitor Setups  
   
 
 ## License

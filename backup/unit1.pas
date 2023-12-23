@@ -165,7 +165,9 @@ type
     procedure CaptureWindow(window: HWND; Image: TImage);
     procedure UpdateDisplay;
     procedure UpdateWindow;
-    procedure InitializeDisplayAffinity;
+    procedure InitializeDisplayAffinity;  
+    function GetFullWidth: Integer;
+    function GetFullHeight: Integer;
   private
 
   public
@@ -204,13 +206,47 @@ var
                   'along with this program.' + LineEnding +
                   'If not, see https://www.gnu.org/licenses/';  //The String used for Displaying the License Information
 
-  const Changelog = 'Version 1.00: Initial Release';  //The String used for Displaying the latest Changelog
+  const Changelog = 'Version 1.01: Fix Free Movement Mode for Multi Monitor Setups';  //The String used for Displaying the latest Changelog
 
 implementation
 
 {$R *.lfm}
 
-{ TForm1 }  
+{ TForm1 }
+
+function TForm1.GetFullWidth: Integer;  //Get combined Screen Width
+var
+  i: Integer = 0;  //Temporary Counter Variable
+begin
+
+  Result := 0;  //Initialize Result
+
+  for i := 0 to Screen.MonitorCount - 1 do begin  //Go through all Monitors
+
+      Result := Result + Screen.Monitors[i].Width;  //Add up Widths
+
+  end;
+
+end;
+
+function TForm1.GetFullHeight: Integer;  //Get combined Screen Height
+var
+  i: Integer = 0;  //Temporary Counter Variable
+begin
+
+  Result := 0;  //Initialize Result
+
+  for i := 0 to Screen.MonitorCount -1 do begin  //Go through Monitors to get the one with the greatest height
+
+      if Screen.Monitors[i].Height > Result then begin  //Check if height > than current Result
+
+        Result := Screen.Monitors[i].Height;  //Set Result
+
+      end;
+
+  end;
+
+end;
 
 procedure TForm1.InitializeDisplayAffinity;
 var
@@ -299,7 +335,6 @@ begin
       RadioButton6.Checked := True;
     end
     else begin  //WDA_NONE or invalid
-      ShowMessage(IntToStr(DPA));
       RadioButton4.Checked := True;
     end;
 
@@ -686,12 +721,12 @@ begin
 
     if CheckBox5.Checked then begin
 
-      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) OR $00080020);  //Set Window Topmost State
+      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) OR $00080020);  //Set Window Click-through State
 
     end
     else begin
 
-      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) AND NOT $00080020);  //Remove Window Topmost State
+      SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) AND NOT $00080020);  //Remove Window Click-through State
 
     end;
 
@@ -970,7 +1005,7 @@ begin
 
     Shape2.Left := X;  //Set Shape X Position
     Shape2.Top := Y;  //Set Shape Y Position
-    SetWindowPos(MasterHandle, 0, Round((X / Panel1.Width) * Screen.Width), Round((Y / Panel1.Height) * Screen.Height), 0, 0, SWP_NOSIZE or SWP_NOZORDER or SWP_NOACTIVATE);  //Move choosen Window
+    SetWindowPos(MasterHandle, 0, Round((X / Panel1.Width) * GetFullWidth), Round((Y / Panel1.Height) * GetFullHeight), 0, 0, SWP_NOSIZE or SWP_NOZORDER or SWP_NOACTIVATE);  //Move choosen Window
 
   end;
 end;

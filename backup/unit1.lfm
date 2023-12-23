@@ -199,8 +199,8 @@ object Form1: TForm1
     Height = 300
     Top = 0
     Width = 500
-    ActivePage = TabSheet1
-    TabIndex = 0
+    ActivePage = TabSheet4
+    TabIndex = 3
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Window Attributes'
@@ -1022,7 +1022,7 @@ object Form1: TForm1
           Height = 60
           Top = 10
           Width = 134
-          Caption = 'WinEdit Dx'#13#10'Version 1.00'#13#10'© EthernalStar'#13#10'NZSoft@Protonmail.com'
+          Caption = 'WinEdit Dx'#13#10'Version 1.01'#13#10'© EthernalStar'#13#10'NZSoft@Protonmail.com'
           ParentColor = False
         end
       end
