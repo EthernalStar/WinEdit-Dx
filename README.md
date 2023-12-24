@@ -117,7 +117,7 @@ The Possibilities of using this Tool for useful or unuseful things are endless.
 ### Building
 
 There should not be any Problem building the Application because it does not rely on any external installed Packages.  
-To build the Project you need to have the Lazarus IDE installed (I used Version 2.2.6) and clone this Repository to yor local Machine.  
+To build the Project you need to have the Lazarus IDE Version 2.2.6 installed and clone this Repository to your local Machine.  
 Now just open the lpr file in your Lazarus Installation and you should be able to edit and compile the Project.  
   
 
