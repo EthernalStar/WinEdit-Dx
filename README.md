@@ -104,7 +104,7 @@ VLC Media Player: When playing ISO Images of DVDs or Blu-rays directly in resize
 
 OBS Studio: The Window of OBS can easily encapsulated in a child Window of WinEdit Dx.  
 After encapsulationg the Window the new Capsule Window can be selected and its DisplayAffinity can now be set.  
-As OBS is now inside a child Window of WinEdit Dx of wich the change of DisplayAffinity is possible OBS itself can be excluded from its own capture.  
+As OBS is now inside a child Window of WinEdit Dx of wich the change of DisplayAffinity is possible OBS itself can be excluded from its own capture.
 This may work for many other Windows wich take Screenshots or capture your Desktop.  
 
 A Text Editor could be made transparent to see additional Information on the Window behind like a Webpage or Table.
@@ -118,7 +118,7 @@ The Possibilities of using this Tool for useful or unuseful things are endless.
 
 There should not be any Problem building the Application because it does not rely on any external installed Packages.  
 To build the Project you need to have the Lazarus IDE Version 2.2.6 installed and clone this Repository to your local Machine.  
-Now just open the lpr file in your Lazarus Installation and you should be able to edit and compile the Project.  
+Now just open the .lpr file in your Lazarus Installation and you should be able to edit and compile the Project.  
   
 
 ## Issues
