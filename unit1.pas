@@ -206,8 +206,9 @@ var
                   'along with this program.' + LineEnding +
                   'If not, see https://www.gnu.org/licenses/';  //The String used for Displaying the License Information
 
-  const Changelog = 'Version 1.00: Initial Release' + LineEnding +
-                    'Version 1.01: Fix Free Movement Mode for Multi Monitor Setups';  //The String used for Displaying the latest Changelog
+  const Changelog = 'Version 1.0.0: Initial Release.' + LineEnding +
+                    'Version 1.0.1: Free Movement Mode Multi Monitor Setup Fix.' + LineEnding +
+                    'Version 1.0.2: Added Information to Executable Manifest.';  //The String used for Displaying the latest Changelog
 
 implementation
 
