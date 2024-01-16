@@ -96,7 +96,7 @@ The Button "**See latest Changelog**" just shows the most recent Changelog.
 The Button "**See License Information**" just shows the License of this Project.  
   
 
-### Use Cases
+## Use Cases
 
 Here are some situations where I use this Tool:  
 
@@ -114,7 +114,7 @@ Any Window that only displays Information and does not need Interaction could be
 The Possibilities of using this Tool for useful or unuseful things are endless.  
   
 
-### Building
+## Building
 
 There should not be any Problem building the Application because it does not rely on any external installed Packages.  
 To build the Project you need to have the Lazarus IDE Version 2.2.6 installed and clone this Repository to your local Machine.  
