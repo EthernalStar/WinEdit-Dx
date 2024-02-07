@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, Windows, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Grids, ComCtrls, ExtCtrls, Spin, LazFileUtils, Types, LCLIntf, ClipBrd, IniFiles;
+  Grids, ComCtrls, ExtCtrls, Spin, LazFileUtils, Types, LCLIntf, ClipBrd, IniFiles, LMessages;
 
 type
 
@@ -186,6 +186,7 @@ type
     procedure CustomLabelMouseEnter(Sender: TObject);
     procedure CustomLabelMouseLeave(Sender: TObject);
     procedure CustomFormDestroy(Sender: TObject; var CloseAction: TCloseAction);
+    const LM_WINEDIT = LM_USER + 1;  //Constant WinEdit Dx / Colors+ Message Communication
   private
 
   public
@@ -238,11 +239,11 @@ var
                     ' * Added Searching Feature for the Window List.' + LineEnding +
                     ' * Added CSV export of the Window List.' + LineEnding +
                     ' * Added failsafe for Window encapsulation.' + LineEnding +
-                    ' * Added Copy Indicator for displayed Handle.' + LineEnding +
+                    ' * Added Copy Indicator for displayed Handle.' + LineEnding + 
+                    ' * Added Communication with Colors+.' + LineEnding +
                     ' * Improved Scrolling with the Window List.' + LineEnding +
                     ' * Rewritten Information Section to be more usable.' + LineEnding +
                     ' * WIP: Improved Screenshot Feature.' + LineEnding +
-                    ' * WIP: Added Communication with Colors+.' + LineEnding +
                     ' * Minor visual fixes.';  //The String used for Displaying the latest Changelog
 
 implementation
@@ -1245,11 +1246,13 @@ begin
   Form1.Caption := 'WinEdit Dx | Active Handle: ' + IntToStr(GetForegroundWindow);  //Display the current Handle in the Titlebar
 end;
 
-procedure TForm1.Timer3Timer(Sender: TObject);  //Free movement mode Timer to allow for a smooth motion
+procedure TForm1.Timer3Timer(Sender: TObject);  //Free movement mode Timer to allow for a smooth motion + also used for WinEdit Dx/Colors+ Communication
 var
   X, Y: Integer;  //Temporary Position Variables
   Point: TPoint;  //Temporary Pointer Variable
 begin
+
+  if CheckBox18.Checked then LCLIntf.PostMessage(FindWindow(nil, 'Colors+'), LM_WINEDIT, MasterHandle, 0);  //Post MasterHandle to Colors+
 
   if AllowDrag = True then begin  //Check if Drag is allowed
 

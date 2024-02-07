@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, Windows, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Grids, ComCtrls, ExtCtrls, Spin, LazFileUtils, Types, LCLIntf, ClipBrd, IniFiles;
+  Grids, ComCtrls, ExtCtrls, Spin, LazFileUtils, Types, LCLIntf, ClipBrd, IniFiles, LMessages;
 
 type
 
@@ -186,6 +186,7 @@ type
     procedure CustomLabelMouseEnter(Sender: TObject);
     procedure CustomLabelMouseLeave(Sender: TObject);
     procedure CustomFormDestroy(Sender: TObject; var CloseAction: TCloseAction);
+    const LM_WINEDIT = LM_USER + 1;  //Constant WinEdit Dx / Colors+ Message Communication
   private
 
   public
@@ -233,7 +234,8 @@ var
                     ' * Free Movement Mode Multi Monitor Setup Fix.' + LineEnding +
                     'Version 1.0.2:' + LineEnding +
                     ' * Added Information to Executable Manifest.' + LineEnding +
-                    'Version 1.0.3:' + LineEnding +     
+                    'Version 1.0.3:' + LineEnding +
+                    ' * Added Feature to save Settings.' + LineEnding +
                     ' * Added Searching Feature for the Window List.' + LineEnding +
                     ' * Added CSV export of the Window List.' + LineEnding +
                     ' * Added failsafe for Window encapsulation.' + LineEnding +
@@ -242,7 +244,6 @@ var
                     ' * Rewritten Information Section to be more usable.' + LineEnding +
                     ' * WIP: Improved Screenshot Feature.' + LineEnding +
                     ' * WIP: Added Communication with Colors+.' + LineEnding +
-                    ' * WIP: Added Saving of Settings.' + LineEnding +
                     ' * Minor visual fixes.';  //The String used for Displaying the latest Changelog
 
 implementation
@@ -251,23 +252,23 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.CustomLabelMouseEnter(Sender: TObject);
+procedure TForm1.CustomLabelMouseEnter(Sender: TObject);  //Custom Procedure to underline any Label OnMouseEnter
 var
-  tempLabel: TLabel = nil;
+  tempLabel: TLabel = nil;  //Temporary Label
 begin
 
-  tempLabel := TLabel(Sender);
-  tempLabel.Font.Style := [fsUnderline];
+  tempLabel := TLabel(Sender);  //Get Label
+  tempLabel.Font.Style := [fsUnderline];  //Set Style
 
 end;
 
-procedure TForm1.CustomLabelMouseLeave(Sender: TObject);
+procedure TForm1.CustomLabelMouseLeave(Sender: TObject);  //Custom Procedure to remove underline from any Label OnMouseLeave
 var
-  tempLabel: TLabel = nil;
+  tempLabel: TLabel = nil;  //Temporary Label
 begin
 
-  tempLabel := TLabel(Sender);
-  tempLabel.Font.Style := [];
+  tempLabel := TLabel(Sender);  //Get Label
+  tempLabel.Font.Style := [];  //Unset Style
 
 end;
 
@@ -1245,11 +1246,13 @@ begin
   Form1.Caption := 'WinEdit Dx | Active Handle: ' + IntToStr(GetForegroundWindow);  //Display the current Handle in the Titlebar
 end;
 
-procedure TForm1.Timer3Timer(Sender: TObject);  //Free movement mode Timer to allow for a smooth motion
+procedure TForm1.Timer3Timer(Sender: TObject);  //Free movement mode Timer to allow for a smooth motion + also used for WinEdit Dx/Colors+ Communication
 var
   X, Y: Integer;  //Temporary Position Variables
   Point: TPoint;  //Temporary Pointer Variable
 begin
+
+  if CheckBox18.Checked then LCLIntf.PostMessage(FindWindow(nil, 'Colors+'), LM_WINEDIT, MasterHandle, 0);  //Post MasterHandle to Colors+
 
   if AllowDrag = True then begin  //Check if Drag is allowed
 
