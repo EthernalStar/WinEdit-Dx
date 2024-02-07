@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, Windows, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Grids, ComCtrls, ExtCtrls, Spin, LazFileUtils, Types, LCLIntf, ClipBrd;
+  Grids, ComCtrls, ExtCtrls, Spin, LazFileUtils, Types, LCLIntf, ClipBrd, IniFiles;
 
 type
 
@@ -24,6 +24,7 @@ type
     Button13: TButton;
     Button14: TButton;
     Button15: TButton;
+    Button16: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -41,6 +42,8 @@ type
     CheckBox15: TCheckBox;
     CheckBox16: TCheckBox;
     CheckBox17: TCheckBox;
+    CheckBox18: TCheckBox;
+    CheckBox19: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
@@ -60,13 +63,13 @@ type
     Edit4: TEdit;
     Edit5: TEdit;
     Edit6: TEdit;
+    Edit7: TEdit;
     GroupBox1: TGroupBox;
     GroupBox10: TGroupBox;
     GroupBox11: TGroupBox;
     GroupBox12: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
-    GroupBox4: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
@@ -74,11 +77,14 @@ type
     GroupBox9: TGroupBox;
     Image1: TImage;
     Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
     Label1: TLabel;
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
+    Label14: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -98,6 +104,7 @@ type
     RadioGroup1: TRadioGroup;
     RadioGroup2: TRadioGroup;
     SaveDialog1: TSaveDialog;
+    SaveDialog2: TSaveDialog;
     Shape2: TShape;
     SpinEdit1: TSpinEdit;
     SpinEdit2: TSpinEdit;
@@ -113,6 +120,7 @@ type
     Timer1: TTimer;
     Timer2: TTimer;
     Timer3: TTimer;
+    Timer4: TTimer;
     TrackBar1: TTrackBar;
     TrayIcon1: TTrayIcon;
     procedure Button10Click(Sender: TObject);
@@ -121,6 +129,7 @@ type
     procedure Button13Click(Sender: TObject);
     procedure Button14Click(Sender: TObject);
     procedure Button15Click(Sender: TObject);
+    procedure Button16Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -134,6 +143,7 @@ type
     procedure CheckBox13Change(Sender: TObject);
     procedure CheckBox16Change(Sender: TObject);
     procedure CheckBox17Change(Sender: TObject);
+    procedure CheckBox19Change(Sender: TObject);
     procedure CheckBox1Change(Sender: TObject);
     procedure CheckBox2Change(Sender: TObject);
     procedure CheckBox3Change(Sender: TObject);
@@ -144,10 +154,14 @@ type
     procedure CheckBox8Change(Sender: TObject);
     procedure CheckBox9Change(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure Edit7Change(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure Label3Click(Sender: TObject);
+    procedure Label4Click(Sender: TObject);
     procedure Label6Click(Sender: TObject);
     procedure Label9Click(Sender: TObject);
     procedure RadioButton1Change(Sender: TObject);
@@ -159,6 +173,7 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
     procedure Timer3Timer(Sender: TObject);
+    procedure Timer4Timer(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure TrayIcon1Click(Sender: TObject);
     procedure UpdateWindowTable;
@@ -168,6 +183,9 @@ type
     procedure InitializeDisplayAffinity;  
     function GetFullWidth: Integer;
     function GetFullHeight: Integer;
+    procedure CustomLabelMouseEnter(Sender: TObject);
+    procedure CustomLabelMouseLeave(Sender: TObject);
+    procedure CustomFormDestroy(Sender: TObject; var CloseAction: TCloseAction);
   private
 
   public
@@ -198,6 +216,9 @@ var
   D: Array [0..9] of Boolean;  //Array of Boolean wich states if NoMovement should be applied
 
   AllowDrag: Boolean = False;  //Boolean for allowing Drag in free movement Area
+  OpenChilds: Integer = 0;  //Amount of Open Child Windows
+
+  Settings: TIniFile;  //Settings ini File
 
   const License = 'WinEdit Dx is licensed under the' + LineEnding +
                   'GNU General Public License v3.0.' + LineEnding +
@@ -206,15 +227,49 @@ var
                   'along with this program.' + LineEnding +
                   'If not, see https://www.gnu.org/licenses/';  //The String used for Displaying the License Information
 
-  const Changelog = 'Version 1.0.0: Initial Release.' + LineEnding +
-                    'Version 1.0.1: Free Movement Mode Multi Monitor Setup Fix.' + LineEnding +
-                    'Version 1.0.2: Added Information to Executable Manifest.';  //The String used for Displaying the latest Changelog
+  const Changelog = 'Version 1.0.0:' + LineEnding +
+                    ' * Initial Release.' + LineEnding +
+                    'Version 1.0.1:' + LineEnding +
+                    ' * Free Movement Mode Multi Monitor Setup Fix.' + LineEnding +
+                    'Version 1.0.2:' + LineEnding +
+                    ' * Added Information to Executable Manifest.' + LineEnding +
+                    'Version 1.0.3:' + LineEnding +
+                    ' * Added Feature to save Settings.' + LineEnding +
+                    ' * Added Searching Feature for the Window List.' + LineEnding +
+                    ' * Added CSV export of the Window List.' + LineEnding +
+                    ' * Added failsafe for Window encapsulation.' + LineEnding +
+                    ' * Added Copy Indicator for displayed Handle.' + LineEnding +
+                    ' * Improved Scrolling with the Window List.' + LineEnding +
+                    ' * Rewritten Information Section to be more usable.' + LineEnding +
+                    ' * WIP: Improved Screenshot Feature.' + LineEnding +
+                    ' * WIP: Added Communication with Colors+.' + LineEnding +
+                    ' * Minor visual fixes.';  //The String used for Displaying the latest Changelog
 
 implementation
 
 {$R *.lfm}
 
 { TForm1 }
+
+procedure TForm1.CustomLabelMouseEnter(Sender: TObject);  //Custom Procedure to underline any Label OnMouseEnter
+var
+  tempLabel: TLabel = nil;  //Temporary Label
+begin
+
+  tempLabel := TLabel(Sender);  //Get Label
+  tempLabel.Font.Style := [fsUnderline];  //Set Style
+
+end;
+
+procedure TForm1.CustomLabelMouseLeave(Sender: TObject);  //Custom Procedure to remove underline from any Label OnMouseLeave
+var
+  tempLabel: TLabel = nil;  //Temporary Label
+begin
+
+  tempLabel := TLabel(Sender);  //Get Label
+  tempLabel.Font.Style := [];  //Unset Style
+
+end;
 
 function TForm1.GetFullWidth: Integer;  //Get combined Screen Width
 var
@@ -503,6 +558,13 @@ begin
 
 end;
 
+procedure TForm1.CustomFormDestroy(Sender: TObject; var CloseAction: TCloseAction);  //Event on Child Form Closure
+begin
+
+  Dec(OpenChilds);  //Decrease the amount of open Child Windows
+
+end;
+
 procedure TForm1.Button12Click(Sender: TObject);  //Dynamic Window Capsule Form Creation
 var
   CapForm: TForm;  //Capsule Form
@@ -514,19 +576,38 @@ begin
   CapForm.BoundsRect := MasterRect;  //Resize to Target Window Size and move to Position
   CapForm.Caption := MasterTitle + ' Capsule';  //Apend Capsule to the new Window Title to better differentiate in the StringGrid
   CapForm.BorderIcons := [biSystemMenu];  //Remove the Minimize and Maximize Buttons as they could cause display issues (Can be reenabled through WinEdit Dx Controls)
-  Windows.SetParent(MasterHandle, CapForm.Handle);  //Set Capsule Form as new Parent for the Target Window
+  CapForm.OnClose := @CustomFormDestroy;
+
+  if Windows.SetParent(MasterHandle, CapForm.Handle) = 0 then begin  //Set Capsule Form as new Parent for the Target Window
+
+    CapForm.Free;  //Destroy the Form as encapsulating was unsuccessful
+    MessageDlg('Encapsulation Failed!' + LineEnding + 'The Window may not be compatible.', mtError, [mbOK], 0);  //Display Error Message
+
+  end
+  else begin
+
+    Inc(OpenChilds);  //Increase Amount of Open Child Forms
+
+  end;
+
   SetWindowPos(MasterHandle, 0, 0, 0, 0, 0, SWP_NOACTIVATE or SWP_NOSIZE or SWP_NOZORDER);  //Move Target Window to better fit inside the Capsule
 
 end;
 
 procedure TForm1.Button13Click(Sender: TObject);  //Custom Window Insertion Procedure
 begin
+
   if NOT (Edit4.Text = '') then begin  //Check for empty Edit Field
+
     Windows.SetParent(MasterHandle, StrToInt(Edit4.Text));  //Set new Parent Window
+
   end
   else begin
+
     ShowMessage('Please input a new parent Handle.');  //Error Message to Display if the Field was leaved empty
+
   end;
+
 end;
 
 procedure TForm1.Button14Click(Sender: TObject);  //Detailed Window Flashing Mode
@@ -557,6 +638,13 @@ end;
 procedure TForm1.Button15Click(Sender: TObject);  //Create an Error Message onto the choosen Window
 begin
   Windows.MessageBox(MasterHandle, PChar(Edit6.Text), PChar(Edit5.Text), $00053010);  //Create the MessageBox
+end;
+
+procedure TForm1.Button16Click(Sender: TObject);  //Export Window List to CSV File
+begin
+
+  if SaveDialog2.Execute then StringGrid1.SaveToCSVFile(SaveDialog2.FileName);  //Save StringGrid to CSV File after choosing Location
+
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);  //Experimental Feature to Export the Preview Image in full size and detail
@@ -647,6 +735,30 @@ begin
   if CheckBox17.Checked = False then begin  //Reset Title after switching monitoring off
     Form1.Caption := 'WinEdit Dx';
   end;
+end;
+
+procedure TForm1.CheckBox19Change(Sender: TObject);  //Auto Save/Load Settings Checkbox Change
+begin
+
+  if NOT CheckBox19.Checked then begin  //Check for disabled Saving Settings
+
+    if FileExists(ExtractFilePath(Application.ExeName) + 'WinEdit Dx.ini') then begin  //Check if Settings where allready created
+
+      if MessageDlg('Unsetting this Option will delete the Settings File.' + LineEnding + 'Do you want to continue?', mtWarning, [mbYes, mbNo], 0) = mrYes then begin  //Ask if user wnats to delete current settings
+
+        DeleteFile(ExtractFilePath(Application.ExeName) + 'WinEdit Dx.ini');  //Delete the Settings File
+
+      end
+      else begin
+
+        CheckBox19.Checked := True;  //Check Checkbox again
+
+      end;
+
+    end;
+
+  end;
+
 end;
 
 procedure TForm1.CheckBox1Change(Sender: TObject);  //Enable the Experimental Window Preview Image Feature
@@ -833,9 +945,94 @@ begin
 
 end;
 
-procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);  //Cleanup when Closing
+procedure TForm1.Edit7Change(Sender: TObject);  //Search Window Title Edit Field Change
+var
+  i: Integer = 0;  //Temp counter Variable
+  j: Integer = 0;  //Temp counter Variable
 begin
-  TrayIcon1.Visible := False;  //Hide TrayIcon before closing the Application to prevent Leftovers
+
+  for i := 0 to StringGrid1.RowCount - 1 do  //Outer Loop
+
+    for j := 0 to StringGrid1.ColCount - 1 do  //Inner Loop
+
+      if Pos(UpperCase(Edit7.Text), UpperCase(StringGrid1.Cells[j, i])) > 0 then begin  //Check for String Match between Searched Title and Cell content
+
+        StringGrid1.Row := i;  //Select Row
+        StringGrid1.TopRow := Max(0, i - (StringGrid1.VisibleRowCount div 2));  //Scroll
+
+        Exit;  //Leave after first match
+
+      end;
+
+end;
+
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);  //Check for open Child Windows before close and cleanup TrayIcon
+begin
+
+  if OpenChilds = 1 then begin  //Check for open Child Windows
+
+    if MessageDlg('There is still ' + IntToStr(OpenChilds) + ' encapsulated Window open.' + LineEnding + 'Do you really want to close the Application?', mtWarning, [mbYes, mbNo], 0) = mrYes then begin
+
+      TrayIcon1.Visible := False;  //Hide TrayIcon before closing the Application to prevent Leftovers
+      CanClose := True;  //Allow Closing
+
+    end
+    else begin
+
+      CanClose := False;  //Prevent Closing
+
+    end;
+
+  end
+  else if OpenChilds > 1 then begin  //Check for open Child Windows
+
+    if MessageDlg('There are still ' + IntToStr(OpenChilds) + ' encapsulated Windows open.' + LineEnding + 'Do you really want to close the Application?', mtWarning, [mbYes, mbNo], 0) = mrYes then begin
+
+      TrayIcon1.Visible := False;  //Hide TrayIcon before closing the Application to prevent Leftovers
+      CanClose := True;  //Allow Closing
+
+    end
+    else begin
+
+      CanClose := False;  //Prevent Closing
+
+    end;
+
+  end
+  else begin
+
+    TrayIcon1.Visible := False;  //Hide TrayIcon before closing the Application to prevent Leftovers
+    CanClose := True;  //Allow Closing
+
+  end;
+
+  if CanClose = True then begin  //Check if Close will actually happen
+
+    if CheckBox19.Checked then begin
+
+      Settings := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'WinEdit Dx.ini');  //Create Settings File
+
+      try
+
+        Settings.WriteString('Settings', 'Screenshot Preview', BoolToStr(CheckBox1.Checked));
+        Settings.WriteString('Settings', 'Manual Style Set', BoolToStr(CheckBox13.Checked));
+        Settings.WriteString('Settings', 'Display Affinity', BoolToStr(CheckBox16.Checked));
+        Settings.WriteString('Settings', 'Disable Topmost Status', BoolToStr(CheckBox6.Checked));
+        Settings.WriteString('Settings', 'Disable Tray Icon', BoolToStr(CheckBox7.Checked));
+        Settings.WriteString('Settings', 'Monitor Active Handle in Titlebar', BoolToStr(CheckBox17.Checked));
+        Settings.WriteString('Settings', 'Send Handle to Colors+ (v1.0.2+)', BoolToStr(CheckBox18.Checked));
+        Settings.WriteString('Settings', 'Auto Save/Load Settings', BoolToStr(CheckBox19.Checked));
+
+      finally
+
+        Settings.Free;  //Free Settings File
+
+      end;
+
+    end;
+
+  end;
+
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);  //Form Creation Event
@@ -844,11 +1041,55 @@ begin
   TabSheet1.Enabled := False;  //Disable TabSheet before the user selects a Window
   TabSheet2.Enabled := False;  //Disable TabSheet before the user selects a Window
   TabSheet3.Enabled := False;  //Disable TabSheet before the user selects a Window
+
+  if FileExists(ExtractFilePath(Application.ExeName) + 'WinEdit Dx.ini') then begin  //Check if Settings File is Present
+
+    Settings := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'WinEdit Dx.ini');
+
+    try
+
+      CheckBox1.Checked := StrToBool(Settings.ReadString('Settings', 'Screenshot Preview', '0'));
+      CheckBox13.Checked := StrToBool(Settings.ReadString('Settings', 'Manual Style Set', '0'));
+      CheckBox16.Checked := StrToBool(Settings.ReadString('Settings', 'Display Affinity', '0'));
+      CheckBox6.Checked := StrToBool(Settings.ReadString('Settings', 'Disable Topmost Status', '0'));
+      CheckBox7.Checked := StrToBool(Settings.ReadString('Settings', 'Disable Tray Icon', '0'));
+      CheckBox17.Checked := StrToBool(Settings.ReadString('Settings', 'Monitor Active Handle in Titlebar', '0'));
+      CheckBox18.Checked := StrToBool(Settings.ReadString('Settings', 'Send Handle to Colors+ (v1.0.2+)', '0'));
+      CheckBox19.Checked := StrToBool(Settings.ReadString('Settings', 'Auto Save/Load Settings', '-1'));
+
+    finally
+
+      Settings.Free //Free Settings File
+
+    end;
+
+  end;
+
+
+end;
+
+procedure TForm1.Image3Click(Sender: TObject);  //Github Icon Click
+begin
+
+  OpenUrl('https://github.com/EthernalStar/WinEdit-Dx');  //Visit Github Repo Page
+
+end;
+
+procedure TForm1.Image4Click(Sender: TObject);  //Codeberg Icon Click
+begin
+
+    OpenUrl('https://codeberg.org/EthernalStar/WinEdit-Dx');  //Visit Codeberg Repo Page
+
 end;
 
 procedure TForm1.Label1Click(Sender: TObject);  //Clipboard Copy Logic
 begin
+
   ClipBrd.Clipboard.AsText := Label1.Caption;  //Copy Handle Value to Clipboard
+  Label1.Font.Color := $0000CE00; //Set Label Color to Green
+  Label1.Caption := 'Copied!';  //Display Message indicating a successful Copy
+  Timer4.Enabled := True;  //Revert Changes with timer
+
 end;
 
 procedure TForm1.Label3Click(Sender: TObject);  //Window Styles Help Link
@@ -856,14 +1097,25 @@ begin
   OpenUrl('https://learn.microsoft.com/en-us/windows/win32/winmsg/window-styles');  //Web Information on official Microsoft Documentation of Window Styles
 end;
 
+procedure TForm1.Label4Click(Sender: TObject);  //Mail Label Click
+begin
+
+  OpenUrl('mailto:NZSoft@Protonmail.com');  //Open Email with mailto
+
+end;
+
 procedure TForm1.Label6Click(Sender: TObject);  //Extended Window Styles Help Link
 begin
+
   OpenUrl('https://learn.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles');  //Web Information on official Microsoft Documentation of Extended Window Styles
+
 end;
 
 procedure TForm1.Label9Click(Sender: TObject);  //FLASHWINFO Help Link
 begin
+
   OpenUrl('https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-flashwinfo');  //Web Information on official Microsoft Documentation of FLASHWINFO Structure
+
 end;
 
 procedure TForm1.RadioButton1Change(Sender: TObject);  //Status Logic to switch between Minimized, Maximized and Normal Window States
@@ -1012,10 +1264,19 @@ begin
   end;
 end;
 
+procedure TForm1.Timer4Timer(Sender: TObject);  //Label Copy Status Reset
+begin
+
+  Label1.Font.Color := clblack;  //Reset Label Color
+  Label1.Caption := IntToStr(MasterHandle);  //Show Master Handle Value again
+  Timer4.Enabled := False;  //Disable Timer
+
+end;
+
 procedure TForm1.TrackBar1Change(Sender: TObject);  //Logic to change Window Transparency while sliding the TrackBar
 begin
 
-  if (TabSheet1.Enabled = True) then begin
+  if (TabSheet1.Enabled = True) then begin  //Check for Page enabled Status
 
     Label5.Caption := IntToStr(255 - TrackBar1.Position);  //Show the current Transparency Value as Number over the TrackBar
     SetWindowLongPtr(MasterHandle, GWL_EXSTYLE, GetWindowLongPtr(MasterHandle, GWL_EXSTYLE) or WS_EX_LAYERED);  //Make choosen Window compatible with Transparency Mode

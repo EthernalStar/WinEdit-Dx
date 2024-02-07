@@ -17,8 +17,8 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="1"/>
-      <RevisionNr Value="2"/>
-      <StringTable Comments="Tool to edit various Attributes of Application Windows." CompanyName="EthernalStar" FileDescription="Tool to edit various Attributes of Application Windows." InternalName="WinEdit Dx" LegalCopyright="EthernalStar" LegalTrademarks="EthernalStar" OriginalFilename="WinEdit Dx" ProductName="WinEdit Dx" ProductVersion="1.0.2.0"/>
+      <RevisionNr Value="3"/>
+      <StringTable Comments="Tool to edit various Attributes of Application Windows." CompanyName="EthernalStar" FileDescription="Tool to edit various Attributes of Application Windows." InternalName="WinEdit Dx" LegalCopyright="EthernalStar" LegalTrademarks="EthernalStar" OriginalFilename="WinEdit Dx" ProductName="WinEdit Dx" ProductVersion="1.0.3.0"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
