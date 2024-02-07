@@ -75,6 +75,8 @@ Just click this Label to copy the Handle to your Clipboard.
 * **Send Handle to Colors+ (v1.0.2+)**: Work in Progress.
 * **Auto Save/Load Settings**: toggles the ability to save all Settings in an ini File (As of v1.0.2).  
 
+* By pressing the Button **Export Window List to CSV File** you could save your current List for external use.  
+
 * The Button "**See latest Changelog**" just shows the most recent Changelog.
 * The Button "**See License Information**" just shows the License of this Project.
 
