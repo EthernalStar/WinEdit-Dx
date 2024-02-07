@@ -72,7 +72,7 @@ Just click this Label to copy the Handle to your Clipboard.
 * **Disable Topmost Status**: changes the Topmost state of the WinEdit Dx Application.
 * **Disable Tray Icon**: toggles the Visibility of the Tray-Icon.
 * **Monitor active Handle in Titlebar**: display the Handle of the currently focused Window in the Titlebar.
-* **Send Handle to Colors+ (v1.0.2+)**: automatically send the current selected Handle to Colors+ [[Github](https://github.com/EthernalStar/Colors-Plus)/[Codeberg](https://codeberg.org/EthernalStar/Colors-Plus)].
+* **Send Handle to Colors+ (v1.0.2+)**: automatically send the current selected Handle to Colors+ for the **Attach to Window** Feature. For more Information See Colors+ on [Github](https://github.com/EthernalStar/Colors-Plus) or [Codeberg](https://codeberg.org/EthernalStar/Colors-Plus).
 * **Auto Save/Load Settings**: toggles the ability to save all Settings in an ini File (As of v1.0.2).
 * By pressing the Button **Export Window List to CSV File** you could save your current List for external use.  
 * The Button "**See latest Changelog**" just shows the most recent Changelog.
