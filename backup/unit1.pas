@@ -25,6 +25,7 @@ type
     Button14: TButton;
     Button15: TButton;
     Button16: TButton;
+    Button17: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -64,6 +65,7 @@ type
     Edit5: TEdit;
     Edit6: TEdit;
     Edit7: TEdit;
+    Edit8: TEdit;
     GroupBox1: TGroupBox;
     GroupBox10: TGroupBox;
     GroupBox11: TGroupBox;
@@ -79,6 +81,7 @@ type
     Image2: TImage;
     Image3: TImage;
     Image4: TImage;
+    Image5: TImage;
     Label1: TLabel;
     Label10: TLabel;
     Label11: TLabel;
@@ -130,6 +133,7 @@ type
     procedure Button14Click(Sender: TObject);
     procedure Button15Click(Sender: TObject);
     procedure Button16Click(Sender: TObject);
+    procedure Button17Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -159,6 +163,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Image3Click(Sender: TObject);
     procedure Image4Click(Sender: TObject);
+    procedure Image5Click(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure Label3Click(Sender: TObject);
     procedure Label4Click(Sender: TObject);
@@ -240,10 +245,11 @@ var
                     ' * Added CSV export of the Window List.' + LineEnding +
                     ' * Added failsafe for Window encapsulation.' + LineEnding +
                     ' * Added Copy Indicator for displayed Handle.' + LineEnding +
+                    ' * Added Communication with Colors+.' + LineEnding +
+                    ' * Added custom Handle select.' + LineEnding +
+                    ' * Added Handle reload with indicator.' + LineEnding +
                     ' * Improved Scrolling with the Window List.' + LineEnding +
                     ' * Rewritten Information Section to be more usable.' + LineEnding +
-                    ' * WIP: Improved Screenshot Feature.' + LineEnding +
-                    ' * WIP: Added Communication with Colors+.' + LineEnding +
                     ' * Minor visual fixes.';  //The String used for Displaying the latest Changelog
 
 implementation
@@ -645,6 +651,23 @@ procedure TForm1.Button16Click(Sender: TObject);  //Export Window List to CSV Fi
 begin
 
   if SaveDialog2.Execute then StringGrid1.SaveToCSVFile(SaveDialog2.FileName);  //Save StringGrid to CSV File after choosing Location
+
+end;
+
+procedure TForm1.Button17Click(Sender: TObject);  //Set custom Handle
+begin
+
+  if NOT (Edit8.Text = '') then begin  //Check for not empty Edit Field
+
+    MasterHandle := StrToInt(Edit8.Text);  //Set Master Handle
+    UpdateDisplay;  //Update GUI values
+
+  end
+  else begin
+
+    ShowMessage('Please input a value for the Handle on the right.');  //Display Error Message
+
+  end;
 
 end;
 
@@ -1079,7 +1102,27 @@ end;
 procedure TForm1.Image4Click(Sender: TObject);  //Codeberg Icon Click
 begin
 
-    OpenUrl('https://codeberg.org/EthernalStar/WinEdit-Dx');  //Visit Codeberg Repo Page
+  OpenUrl('https://codeberg.org/EthernalStar/WinEdit-Dx');  //Visit Codeberg Repo Page
+
+end;
+
+procedure TForm1.Image5Click(Sender: TObject);  //Reload current Handle
+begin
+
+  if CheckBox1.Checked then begin  //Check for Enabled Experimental Feature
+     CaptureWindow(MasterHandle, Image1);  //Try Window Capture
+  end;
+
+  if CheckBox13.Checked then begin  //Check for Enabled Experimental Feature
+     Edit2.Text := IntToHex(Windows.GetWindowLongPtr(MasterHandle, GWL_STYLE));  //Set Experimantal Display for GWL_STYLE
+     Edit3.Text := IntToHex(Windows.GetWindowLongPtr(MasterHandle, GWL_EXSTYLE));  //Set Experimantal Display for GWL_EXSTYLE
+  end;
+
+  UpdateDisplay;  //Update GUI values
+
+  Label1.Font.Color := $000080FF; //Set Label Color to Orange
+  Label1.Caption := 'Reload!';  //Display Message indicating a successful Reload
+  Timer4.Enabled := True;  //Revert Changes with timer
 
 end;
 
@@ -1182,6 +1225,8 @@ begin
     TabSheet1.Enabled := True;  //Enable TabSheet after the user selects a Window
     TabSheet2.Enabled := True;  //Enable TabSheet after the user selects a Window
     TabSheet3.Enabled := True;  //Enable TabSheet after the user selects a Window
+
+    Image5.Enabled := True;  //Enable Reaload of current Handle
 
     MasterHandle := StrToInt(StringGrid1.Cells[0,StringGrid1.Row]);  //Update the value for the current MasterHandle
     MasterTitle := StringGrid1.Cells[1,StringGrid1.Row];  //Update the value for the current MasterTitle

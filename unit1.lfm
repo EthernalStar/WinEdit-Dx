@@ -221,7 +221,7 @@ object Form1: TForm1
         object SpinEdit1: TSpinEdit
           Left = 32
           Height = 23
-          Top = 8
+          Top = 3
           Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 0
@@ -229,7 +229,7 @@ object Form1: TForm1
         object SpinEdit2: TSpinEdit
           Left = 32
           Height = 23
-          Top = 40
+          Top = 39
           Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 1
@@ -237,7 +237,7 @@ object Form1: TForm1
         object SpinEdit3: TSpinEdit
           Left = 32
           Height = 23
-          Top = 72
+          Top = 75
           Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 2
@@ -245,7 +245,7 @@ object Form1: TForm1
         object SpinEdit4: TSpinEdit
           Left = 32
           Height = 23
-          Top = 104
+          Top = 111
           Width = 66
           OnChange = SpinEdit1Change
           TabOrder = 3
@@ -253,7 +253,7 @@ object Form1: TForm1
         object Label10: TLabel
           Left = 6
           Height = 20
-          Top = 11
+          Top = 6
           Width = 12
           Caption = 'X:'
           Font.CharSet = ANSI_CHARSET
@@ -266,7 +266,7 @@ object Form1: TForm1
         object Label11: TLabel
           Left = 6
           Height = 20
-          Top = 43
+          Top = 42
           Width = 11
           Caption = 'Y:'
           Font.CharSet = ANSI_CHARSET
@@ -279,7 +279,7 @@ object Form1: TForm1
         object Label12: TLabel
           Left = 6
           Height = 20
-          Top = 75
+          Top = 78
           Width = 17
           Caption = 'W:'
           Font.CharSet = ANSI_CHARSET
@@ -292,7 +292,7 @@ object Form1: TForm1
         object Label13: TLabel
           Left = 6
           Height = 20
-          Top = 107
+          Top = 115
           Width = 14
           Caption = 'H:'
           Font.CharSet = ANSI_CHARSET
@@ -1179,7 +1179,7 @@ object Form1: TForm1
       end
       object CheckGroup2: TCheckGroup
         Left = 8
-        Height = 145
+        Height = 193
         Top = 8
         Width = 232
         AutoFill = True
@@ -1192,12 +1192,12 @@ object Form1: TForm1
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 125
+        ClientHeight = 173
         ClientWidth = 228
         TabOrder = 1
         object CheckBox6: TCheckBox
           Left = 6
-          Height = 23
+          Height = 33
           Top = 6
           Width = 216
           Caption = 'Disable Topmost Status'
@@ -1206,8 +1206,8 @@ object Form1: TForm1
         end
         object CheckBox7: TCheckBox
           Left = 6
-          Height = 23
-          Top = 29
+          Height = 33
+          Top = 39
           Width = 216
           Caption = 'Disable Tray Icon'
           OnChange = CheckBox7Change
@@ -1215,8 +1215,8 @@ object Form1: TForm1
         end
         object CheckBox17: TCheckBox
           Left = 6
-          Height = 23
-          Top = 52
+          Height = 33
+          Top = 72
           Width = 216
           Caption = 'Monitor active Handle in Titlebar'
           OnChange = CheckBox17Change
@@ -1224,16 +1224,16 @@ object Form1: TForm1
         end
         object CheckBox18: TCheckBox
           Left = 6
-          Height = 23
-          Top = 75
+          Height = 33
+          Top = 105
           Width = 216
           Caption = 'Send Handle to Colors+ (v1.0.2+)'
           TabOrder = 3
         end
         object CheckBox19: TCheckBox
           Left = 6
-          Height = 21
-          Top = 98
+          Height = 29
+          Top = 138
           Width = 216
           Caption = 'Auto Save/Load Settings'
           OnChange = CheckBox19Change
@@ -1249,18 +1249,38 @@ object Form1: TForm1
         OnClick = Button16Click
         TabOrder = 2
       end
+      object Button17: TButton
+        Left = 16
+        Height = 25
+        Top = 208
+        Width = 136
+        Caption = 'Set custom Handle'
+        OnClick = Button17Click
+        TabOrder = 3
+      end
+      object Edit8: TEdit
+        Left = 160
+        Height = 23
+        Top = 209
+        Width = 69
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 4
+        TextHint = 'Handle'
+      end
     end
   end
   object Label1: TLabel
-    Left = 487
+    Left = 422
     Height = 21
     Hint = 'The Current Handle. Click to Copy.'
     Top = 0
-    Width = 9
+    Width = 74
     Alignment = taRightJustify
+    AutoSize = False
     Caption = '0'
     Font.CharSet = ANSI_CHARSET
-    Font.Height = -16
+    Font.Height = 22
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -1269,6 +1289,7 @@ object Form1: TForm1
     ParentShowHint = False
     ShowHint = True
     OnClick = Label1Click
+    OptimalFill = True
   end
   object Edit7: TEdit
     Left = 352
@@ -1280,6 +1301,27 @@ object Form1: TForm1
     OnChange = Edit7Change
     TabOrder = 3
     TextHint = 'Search in Window List'
+  end
+  object Image5: TImage
+    Cursor = crHandPoint
+    Left = 404
+    Height = 16
+    Hint = 'Reload current Handle'
+    Top = 4
+    Width = 16
+    Enabled = False
+    OnClick = Image5Click
+    ParentShowHint = False
+    Picture.Data = {
+      1754506F727461626C654E6574776F726B47726170686963A000000089504E47
+      0D0A1A0A0000000D49484452000000080000000804030000003621A3B8000000
+      017352474200AECE1CE90000000467414D410000B18F0BFC610500000006504C
+      5445FFFFFF00000055C2D37E000000097048597300000EC300000EC301C76FA8
+      64000000234944415418D315C8C10D00300C83C0F306CEFECBB6E60112E468D5
+      EA6AFC19A6ACF50011CB00CD7EBE9AC30000000049454E44AE426082
+    }
+    ShowHint = True
+    Stretch = True
   end
   object SaveDialog1: TSaveDialog
     Title = 'Export Screenshot as PNG'

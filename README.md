@@ -30,6 +30,7 @@ This can be done by clicking **Refresh Window List** Button.
 After selecting your Window you should be ready to go to change its Settings.
 Also the Handle of your Window is now displayed on the top right Edge of the Application.
 Just click this Label to copy the Handle to your Clipboard.
+You can also click the immage left from this label to reload the current Handle (As of v1.0.3).
 
 ### Window Attributes
 
@@ -74,6 +75,7 @@ Just click this Label to copy the Handle to your Clipboard.
 * **Monitor active Handle in Titlebar**: display the Handle of the currently focused Window in the Titlebar.
 * **Send Handle to Colors+ (v1.0.2+)**: automatically send the current selected Handle to Colors+ (**Version 1.0.2+ needed**) for the **Attach to Window** Feature. For more Information See Colors+ on [Github](https://github.com/EthernalStar/Colors-Plus) or [Codeberg](https://codeberg.org/EthernalStar/Colors-Plus) (As of v1.0.3).
 * **Auto Save/Load Settings**: toggles the ability to save all Settings in an ini File (As of v1.0.3).
+* To input a custom Handle use the **Set custom Handle** Button and the corresponding Edit Field (As of v1.0.3).
 * By pressing the Button **Export Window List to CSV File** you could save your current List for external use (As of v1.0.3).  
 * The Button "**See latest Changelog**" just shows the most recent Changelog.
 * The Button "**See License Information**" just shows the License of this Project.
@@ -124,9 +126,10 @@ To do this just open the .lpr file and you should be able to edit and compile th
   * Added failsafe for Window encapsulation.
   * Added Copy Indicator for displayed Handle.
   * Added Communication with Colors+.
+  * Added custom Handle select.
+  * Added Handle reload with indicator.
   * Improved Scrolling with the Window List.
   * Rewritten Information Section to be more usable.
-  * WIP: Improved Screenshot Feature.
   * Minor visual fixes.
 
 ## License
