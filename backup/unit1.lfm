@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 573
+  Left = 350
   Height = 625
-  Top = 232
+  Top = 174
   Width = 500
   VertScrollBar.Smooth = True
   VertScrollBar.Tracking = True
@@ -152,7 +152,7 @@ object Form1: TForm1
     0000000000000000000000000000000000000000000000000000000000000000
     0000
   }
-  OnActivate = Button1Click
+  OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   Position = poScreenCenter
@@ -163,7 +163,7 @@ object Form1: TForm1
     Height = 25
     Hint = 'Refreshes the Window List to display Changes'
     Top = 300
-    Width = 352
+    Width = 235
     Align = alLeft
     Caption = 'Refresh Window List'
     OnClick = Button1Click
@@ -1309,6 +1309,7 @@ object Form1: TForm1
     Hint = 'Reload current Handle'
     Top = 4
     Width = 16
+    Enabled = False
     OnClick = Image5Click
     ParentShowHint = False
     Picture.Data = {
@@ -1321,6 +1322,15 @@ object Form1: TForm1
     }
     ShowHint = True
     Stretch = True
+  end
+  object Button18: TButton
+    Left = 234
+    Height = 25
+    Top = 300
+    Width = 118
+    Caption = 'List Child Objects'
+    OnClick = Button18Click
+    TabOrder = 4
   end
   object SaveDialog1: TSaveDialog
     Title = 'Export Screenshot as PNG'

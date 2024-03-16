@@ -31,6 +31,7 @@ After selecting your Window you should be ready to go to change its Settings.
 Also the Handle of your Window is now displayed on the top right Edge of the Application.
 Just click this Label to copy the Handle to your Clipboard.
 You can also click the immage left from this label to reload the current Handle (As of v1.0.3).
+It is also possible to list the child objects of a Handle by clicking the **List Child Objects** Button (As of v1.0.4).
 
 ### Window Attributes
 
@@ -131,6 +132,9 @@ To do this just open the .lpr file and you should be able to edit and compile th
   * Improved Scrolling with the Window List.
   * Rewritten Information Section to be more usable.
   * Minor visual fixes.
+* Version 1.0.4:
+  * Added Support for listing Child Objects.
+  * Code cleanup.
 
 ## License
 

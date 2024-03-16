@@ -26,6 +26,7 @@ type
     Button15: TButton;
     Button16: TButton;
     Button17: TButton;
+    Button18: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -134,6 +135,7 @@ type
     procedure Button15Click(Sender: TObject);
     procedure Button16Click(Sender: TObject);
     procedure Button17Click(Sender: TObject);
+    procedure Button18Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -159,6 +161,7 @@ type
     procedure CheckBox9Change(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure Edit7Change(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure Image3Click(Sender: TObject);
@@ -250,7 +253,10 @@ var
                     ' * Added Handle reload with indicator.' + LineEnding +
                     ' * Improved Scrolling with the Window List.' + LineEnding +
                     ' * Rewritten Information Section to be more usable.' + LineEnding +
-                    ' * Minor visual fixes.';  //The String used for Displaying the latest Changelog
+                    ' * Minor visual fixes.' + LineEnding +
+                    'Version 1.0.4:' + LineEnding +    
+                    ' * Added Support for listing Child Objects.' + LineEnding +
+                    ' * Code cleanup.';  //The String used for Displaying the latest Changelog
 
 implementation
 
@@ -511,7 +517,6 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);  //Update the StringGrid (Also used by TForm1 "OnActivate" as Initial Call)
 begin
   UpdateWindowTable;   //Initial Loading of Window Handles and Titles in StringGrid
-  InitializeDisplayAffinity;  //Call Initializing of imported DisplayAffinity Function
 end;
 
 procedure TForm1.Button10Click(Sender: TObject);  //Set Extended Window Style Manual
@@ -669,6 +674,44 @@ begin
 
   end;
 
+end;
+
+procedure TForm1.Button18Click(Sender: TObject);
+  var
+
+    NHandle: hWnd;  //Variable to temporary hold the Window Handles
+    TitleText: array[0..260] of Char;  //Array to be filles with the Window Title
+    i: Integer = 0;  //Counter Variable
+
+  begin
+    TitleText := '';  //Initialize TitleText Variable
+
+    StringGrid1.Clear;  //Reset the String Grid (As the Procedure could be called to update the List)
+
+    NHandle := GetWindow(MasterHandle, GW_CHILD);  //Setup initial Handle to start iterating from
+
+
+    while (NHandle <> 0) do
+    begin
+         NHandle := GetWindow(NHandle, GW_HWNDNEXT);  //Get next Handle
+
+         FillChar(TitleText, SizeOf(TitleText), #0);  //Reset the Array
+
+         GetWindowText(NHandle, PChar(TitleText), Length(TitleText));  //Get Text of current Handle
+
+         StringGrid1.RowCount := i + 2;  //Extend RowCount of the StringGrid to fit all entries (+2 as i starts with 0 and one Row is reserved for the Descriptions)
+
+         if i = 0 then begin  //Only Init the StringGrid once
+           StringGrid1.Cells[0,0] := 'Handle';  //Add Description
+           StringGrid1.Cells[1,0] := 'Title';  //Add Description
+           StringGrid1.ColWidths[1] := 415;  //Extend Column to be better readable
+         end;
+
+         StringGrid1.Cells[0,i + 1] := IntToStr(NHandle);  //Add Entry for the Handle
+         StringGrid1.Cells[1,i + 1] := TitleText;  //Add Entry for the Title
+
+         i += 1;  //Counter +1
+    end;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);  //Experimental Feature to Export the Preview Image in full size and detail
@@ -990,6 +1033,11 @@ begin
 
 end;
 
+procedure TForm1.FormActivate(Sender: TObject); //Form activation Event
+begin
+  UpdateWindowTable;  //Update the Window Table
+end;
+
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);  //Check for open Child Windows before close and cleanup TrayIcon
 begin
 
@@ -1061,10 +1109,13 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);  //Form Creation Event
 begin
+
   TrayIcon1.Show;  //Show the TrayIcon
   TabSheet1.Enabled := False;  //Disable TabSheet before the user selects a Window
   TabSheet2.Enabled := False;  //Disable TabSheet before the user selects a Window
   TabSheet3.Enabled := False;  //Disable TabSheet before the user selects a Window
+
+  InitializeDisplayAffinity;  //Call Initializing of imported DisplayAffinity Function
 
   if FileExists(ExtractFilePath(Application.ExeName) + 'WinEdit Dx.ini') then begin  //Check if Settings File is Present
 
@@ -1220,7 +1271,7 @@ end;
 procedure TForm1.StringGrid1DblClick(Sender: TObject);  //Procedure to call if the user chooses a Window from the List by double Clicking on the Entry
 begin
 
-  if (StringGrid1.Row >= 1) AND (StringGrid1.Cells[0,StringGrid1.Row].Length > 0) then begin  //Only select the current Handle if there is something to select in the first column
+  if (StringGrid1.RowCount >= 1) AND (StringGrid1.Cells[0,StringGrid1.Row].Length > 0) then begin  //Only select the current Handle if there is something to select in the first column
 
     TabSheet1.Enabled := True;  //Enable TabSheet after the user selects a Window
     TabSheet2.Enabled := True;  //Enable TabSheet after the user selects a Window
@@ -1247,7 +1298,7 @@ begin
     UpdateDisplay;  //Update GUI values
   end
   else begin
-    MessageDlg(Application.Title, 'Please select an entry first!', mtError, [mbOK], 0);  //Error Message if Selection was invalid (Should theoreticaly not be needed
+    MessageDlg(Application.Title, 'No Handle was found!', mtError, [mbOK], 0);  //Error Message if Selection was invalid (Should theoreticaly not be needed
   end;
 end;
 
