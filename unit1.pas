@@ -26,7 +26,7 @@ type
     Button15: TButton;
     Button16: TButton;
     Button17: TButton;
-    Button18: TButton;
+    Button19: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -135,7 +135,7 @@ type
     procedure Button15Click(Sender: TObject);
     procedure Button16Click(Sender: TObject);
     procedure Button17Click(Sender: TObject);
-    procedure Button18Click(Sender: TObject);
+    procedure Button19Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -254,9 +254,12 @@ var
                     ' * Improved Scrolling with the Window List.' + LineEnding +
                     ' * Rewritten Information Section to be more usable.' + LineEnding +
                     ' * Minor visual fixes.' + LineEnding +
-                    'Version 1.0.4:' + LineEnding +    
+                    'Version 1.0.4:' + LineEnding +
                     ' * Added Support for listing Child Objects.' + LineEnding +
-                    ' * Code cleanup.';  //The String used for Displaying the latest Changelog
+                    ' * Code cleanup.' + LineEnding +
+                    'Version 1.0.5:' + LineEnding +    
+                    ' * Added Class info to listing Child Objects.' + LineEnding +
+                    ' * Greatly improved Listing of Child Objects.'; //The String used for Displaying the latest Changelog
 
 implementation
 
@@ -481,14 +484,14 @@ procedure TForm1.UpdateWindowTable;  //Initial Procedure to create and Display t
 var
 
   NHandle: hWnd;  //Variable to temporary hold the Window Handles
-  TitleText: array[0..260] of Char;  //Array to be filles with the Window Title
+  TitleText: array[0..260] of Char;  //Array to be filled with the Window Title
   i: Integer = 0;  //Counter Variable
 
 begin
   TitleText := '';  //Initialize TitleText Variable
 
   StringGrid1.Clear;  //Reset the String Grid (As the Procedure could be called to update the List)
-
+  StringGrid1.ColCount := 2;  //Expand Col Count temporaryly to 2
   NHandle := GetWindow(Application.Mainform.Handle, GW_HWNDFIRST);  //Setup initial Handle to start iterating from
 
   while (NHandle <> 0) do
@@ -676,42 +679,47 @@ begin
 
 end;
 
-procedure TForm1.Button18Click(Sender: TObject);
-  var
+function EnumChildWindowsProc(Wnd: HWND; lParam: LPARAM): BOOL; stdcall;  //List all Child Objects of the given Handle (Also works with Handle 0)
+var
+  ClassName: array[0..255] of Char;  //Array to be filled with the Class Name of the Object
+  TitleText: array[0..260] of Char;  //Array to be filled with the Window Title
+begin
 
-    NHandle: hWnd;  //Variable to temporary hold the Window Handles
-    TitleText: array[0..260] of Char;  //Array to be filles with the Window Title
-    i: Integer = 0;  //Counter Variable
+  ClassName := '';  //Initialize ClassName Variable
+  TitleText := '';  //Initialize TitleText Variable
+  FillChar(TitleText, SizeOf(TitleText), #0);  //Reset the Array
 
-  begin
-    TitleText := '';  //Initialize TitleText Variable
+  GetClassName(Wnd, ClassName, Length(ClassName));  //Get the Object Class Name
 
-    StringGrid1.Clear;  //Reset the String Grid (As the Procedure could be called to update the List)
+  GetWindowText(Wnd, PChar(TitleText), Length(TitleText));  //Get Text of current Handle
 
-    NHandle := GetWindow(MasterHandle, GW_CHILD);  //Setup initial Handle to start iterating from
+  Form1.StringGrid1.RowCount := Form1.StringGrid1.RowCount + 1;  //Expand StringGrid
 
+  Form1.StringGrid1.Cells[0, Form1.StringGrid1.RowCount -1] := IntToStr(Wnd);  //Write Handle
+  Form1.StringGrid1.Cells[1, Form1.StringGrid1.RowCount -1] := TitleText;  //Write Title
+  Form1.StringGrid1.Cells[2, Form1.StringGrid1.RowCount -1] := ClassName;  //Write Class
 
-    while (NHandle <> 0) do
-    begin
-         NHandle := GetWindow(NHandle, GW_HWNDNEXT);  //Get next Handle
+  Result := True;  //Continue
+end;
 
-         FillChar(TitleText, SizeOf(TitleText), #0);  //Reset the Array
+procedure TForm1.Button19Click(Sender: TObject);
+var
 
-         GetWindowText(NHandle, PChar(TitleText), Length(TitleText));  //Get Text of current Handle
+  i: Integer = 0;  //Counter Variable
 
-         StringGrid1.RowCount := i + 2;  //Extend RowCount of the StringGrid to fit all entries (+2 as i starts with 0 and one Row is reserved for the Descriptions)
+begin
 
-         if i = 0 then begin  //Only Init the StringGrid once
-           StringGrid1.Cells[0,0] := 'Handle';  //Add Description
-           StringGrid1.Cells[1,0] := 'Title';  //Add Description
-           StringGrid1.ColWidths[1] := 415;  //Extend Column to be better readable
-         end;
+  StringGrid1.Clear;  //Reset the String Grid (As the Procedure could be called to update the List)
+  StringGrid1.RowCount := 1;  //Set initial Row Count
+  StringGrid1.ColCount := 3;  //Expand Col Count temporaryly to 3
+  StringGrid1.Cells[0,0] := 'Handle';  //Add Description
+  StringGrid1.Cells[1,0] := 'Title';  //Add Description
+  StringGrid1.Cells[2,0] := 'Type';  //Add Description
+  StringGrid1.ColWidths[1] := 300;  //Extend Column to be better readable
+  StringGrid1.ColWidths[2] := 115;  //Extend Column to be better readable
 
-         StringGrid1.Cells[0,i + 1] := IntToStr(NHandle);  //Add Entry for the Handle
-         StringGrid1.Cells[1,i + 1] := TitleText;  //Add Entry for the Title
+  EnumChildWindows(MasterHandle, @EnumChildWindowsProc, LPARAM(nil));  //Call the Enumeration Function
 
-         i += 1;  //Counter +1
-    end;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);  //Experimental Feature to Export the Preview Image in full size and detail
@@ -1271,7 +1279,7 @@ end;
 procedure TForm1.StringGrid1DblClick(Sender: TObject);  //Procedure to call if the user chooses a Window from the List by double Clicking on the Entry
 begin
 
-  if (StringGrid1.RowCount >= 1) AND (StringGrid1.Cells[0,StringGrid1.Row].Length > 0) then begin  //Only select the current Handle if there is something to select in the first column
+  if (StringGrid1.RowCount >= 2) AND (StringGrid1.Cells[0,StringGrid1.Row].Length > 0) then begin  //Only select the current Handle if there is something to select in the first column
 
     TabSheet1.Enabled := True;  //Enable TabSheet after the user selects a Window
     TabSheet2.Enabled := True;  //Enable TabSheet after the user selects a Window

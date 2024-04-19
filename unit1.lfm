@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 350
+  Left = 778
   Height = 625
-  Top = 174
+  Top = 235
   Width = 500
   VertScrollBar.Smooth = True
   VertScrollBar.Tracking = True
@@ -163,7 +163,7 @@ object Form1: TForm1
     Height = 25
     Hint = 'Refreshes the Window List to display Changes'
     Top = 300
-    Width = 235
+    Width = 259
     Align = alLeft
     Caption = 'Refresh Window List'
     OnClick = Button1Click
@@ -1028,7 +1028,7 @@ object Form1: TForm1
           Height = 45
           Top = 8
           Width = 79
-          Caption = 'WinEdit Dx'#13#10'Version 1.0.4'#13#10'©EthernalStar'
+          Caption = 'WinEdit Dx'#13#10'Version 1.0.5'#13#10'©EthernalStar'
           Font.CharSet = ANSI_CHARSET
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
@@ -1292,10 +1292,10 @@ object Form1: TForm1
     OptimalFill = True
   end
   object Edit7: TEdit
-    Left = 352
+    Left = 368
     Height = 25
     Top = 300
-    Width = 148
+    Width = 132
     Align = alRight
     Alignment = taCenter
     OnChange = Edit7Change
@@ -1323,13 +1323,13 @@ object Form1: TForm1
     ShowHint = True
     Stretch = True
   end
-  object Button18: TButton
-    Left = 234
+  object Button19: TButton
+    Left = 258
     Height = 25
     Top = 300
-    Width = 118
+    Width = 110
     Caption = 'List Child Objects'
-    OnClick = Button18Click
+    OnClick = Button19Click
     TabOrder = 4
   end
   object SaveDialog1: TSaveDialog

@@ -135,6 +135,9 @@ To do this just open the .lpr file and you should be able to edit and compile th
 * Version 1.0.4:
   * Added Support for listing Child Objects.
   * Code cleanup.
+* Version 1.0.5:
+  * Added Class info to listing Child Objects.
+  * Greatly improved Listing of Child Objects.
 
 ## License
 
